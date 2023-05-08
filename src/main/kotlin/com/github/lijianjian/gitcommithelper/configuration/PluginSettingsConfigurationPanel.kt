@@ -1,10 +1,11 @@
-package org.nemwiz.jiracommitmessage.configuration
+package com.github.lijianjian.gitcommithelper.configuration
 
 import com.intellij.openapi.ui.ComboBox
 import com.intellij.ui.CollectionListModel
 import com.intellij.ui.ToolbarDecorator
 import com.intellij.ui.components.JBLabel
 import com.intellij.ui.components.JBList
+import com.intellij.ui.components.JBTextField
 import com.intellij.util.ui.FormBuilder
 import javax.swing.JComponent
 import javax.swing.JPanel
@@ -17,35 +18,21 @@ class PluginSettingsConfigurationPanel {
     var prefixesList: JBList<String>
     var prefixesModel: CollectionListModel<String>
     private var toolbar: ToolbarDecorator
+    private var prefixField: JBTextField
 
     init {
-        messageWrapperTypeDropdown.addItem(MessageWrapperType.NO_WRAPPER.type)
-        messageWrapperTypeDropdown.addItem(MessageWrapperType.ROUND.type)
-        messageWrapperTypeDropdown.addItem(MessageWrapperType.BOX.type)
-        messageWrapperTypeDropdown.addItem(MessageWrapperType.CURLY.type)
-        messageWrapperTypeDropdown.addItem(MessageWrapperType.ANGLE.type)
-        messageWrapperTypeDropdown.addItem(MessageWrapperType.STAR.type)
-        messageWrapperTypeDropdown.addItem(MessageWrapperType.VERTICAL_SLASH.type)
-        messageWrapperTypeDropdown.addItem(MessageWrapperType.FORWARD_SLASH.type)
-        messageWrapperTypeDropdown.addItem(MessageWrapperType.BACKSLASH.type)
+
 
         prefixesModel = CollectionListModel<String>(prefixes)
         prefixesList = JBList(prefixesModel)
         prefixesList.setEmptyText("No prefixes configured")
+        prefixField = JBTextField();
 
         toolbar = ToolbarDecorator.createDecorator(prefixesList).disableUpDownActions()
-        toolbar.setAddAction {
-            run {
-                val addPrefixDialog = AddPrefixDialog()
-                if (addPrefixDialog.showAndGet()) {
-                    prefixesModel.add(addPrefixDialog.addPrefixField.text)
-                }
-            }
-        }
+
 
         mainPanel = FormBuilder.createFormBuilder()
-            .addLabeledComponent(JBLabel("Commit message bracket/wrapper type"), messageWrapperTypeDropdown, 1, false)
-            .addLabeledComponent(JBLabel("JIRA project prefixes"), toolbar.createPanel(), 1, true)
+            .addLabeledComponent(JBLabel("JIRA project prefixes"), prefixField, 1, false)
             .addComponentFillVertically(JPanel(), 0)
             .panel
     }

@@ -5,12 +5,34 @@
     <vendor>lijianjian</vendor>
 
     <depends>com.intellij.modules.platform</depends>
+    <depends>Git4Idea</depends>
 
     <resource-bundle>messages.MyBundle</resource-bundle>
 
     <extensions defaultExtensionNs="com.intellij">
+        <applicationService serviceImplementation="com.github.lijianjian.gitcommithelper.configuration.PluginSettingsState"/>
+        <projectService serviceImplementation="com.github.lijianjian.gitcommithelper.services.MyProjectService"/>
+        <projectService serviceImplementation="com.github.lijianjian.gitcommithelper.services.JiraService"/>
+
         <toolWindow factoryClass="com.github.lijianjian.gitcommithelper.toolWindow.MyToolWindowFactory" id="MyToolWindow"/>
+        <applicationConfigurable groupId="tools"
+                                 displayName="JIRA Id Commit Message"
+                                 id="preference.action.PluginActionConfiguration"
+                                 nonDefaultProject="true"
+                                 instance="com.github.lijianjian.gitcommithelper.configuration.PluginSettingsConfiguration"/>
+
+
     </extensions>
+
+    <actions>
+        <action id="action.PluginAction"
+                class="com.github.lijianjian.gitcommithelper.action.PluginAction"
+                text="JIRA Id Commit Message Action"
+                description="Action for inserting JIRA id from branch name into commit message"
+                icon="/icons/frog.png">
+            <add-to-group group-id="Vcs.MessageActionGroup" anchor="first"/>
+        </action>
+    </actions>
 
     <applicationListeners>
         <listener class="com.github.lijianjian.gitcommithelper.listeners.MyFrameStateListener" topic="com.intellij.ide.FrameStateListener"/>

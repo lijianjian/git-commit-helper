@@ -1,12 +1,13 @@
-package org.nemwiz.jiracommitmessage.action
+package com.github.lijianjian.gitcommithelper.action
 
+import com.github.lijianjian.gitcommithelper.services.JiraService
+import com.github.lijianjian.gitcommithelper.services.MyProjectService
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.vcs.CommitMessageI
 import com.intellij.openapi.vcs.VcsDataKeys
 import com.intellij.openapi.vcs.ui.Refreshable
-import org.nemwiz.jiracommitmessage.services.JiraService
-import org.nemwiz.jiracommitmessage.services.MyProjectService
+
 
 class PluginAction : AnAction() {
     override fun actionPerformed(actionEvent: AnActionEvent) {
@@ -14,9 +15,9 @@ class PluginAction : AnAction() {
 
         if (currentProject != null) {
             val projectService = actionEvent.project?.getService(MyProjectService::class.java)
-            val newCommitMessage = projectService?.getTaskIdFromBranchName()
+            val branchName = projectService?.getBranchName()
             val jiraService = actionEvent.project?.getService(JiraService::class.java)
-            val summary = jiraService?.getSummary(newCommitMessage)
+            val summary = jiraService?.getSummary(branchName)
             getCommitPanel(actionEvent)?.setCommitMessage(summary)
         }
     }

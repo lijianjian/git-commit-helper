@@ -1,4 +1,4 @@
-package org.nemwiz.jiracommitmessage.configuration
+package com.github.lijianjian.gitcommithelper.configuration
 
 import com.intellij.openapi.options.Configurable
 import com.intellij.ui.CollectionListModel
@@ -16,16 +16,17 @@ class PluginSettingsConfiguration : Configurable {
     }
 
     override fun isModified(): Boolean {
-        return pluginSettingsConfigurationPanel
-            .messageWrapperTypeDropdown.selectedItem != pluginSettingsState.messageWrapperType ||
-            setOf(pluginSettingsConfigurationPanel.prefixesModel.items) != setOf(pluginSettingsState.jiraProjectPrefixes)
+        return false
+//        return pluginSettingsConfigurationPanel
+//            .messageWrapperTypeDropdown.selectedItem != pluginSettingsState.messageWrapperType ||
+//            setOf(pluginSettingsConfigurationPanel.prefixesModel.items) != setOf(pluginSettingsState.jiraProjectPrefixes)
     }
 
     override fun apply() {
-        pluginSettingsState.messageWrapperType = pluginSettingsConfigurationPanel
-            .messageWrapperTypeDropdown
-            .selectedItem
-            .toString()
+//        pluginSettingsState.messageWrapperType = pluginSettingsConfigurationPanel
+//            .messageWrapperTypeDropdown
+//            .selectedItem
+//            .toString()
         pluginSettingsState.jiraProjectPrefixes = pluginSettingsConfigurationPanel.prefixesModel.items
     }
 
@@ -38,9 +39,9 @@ class PluginSettingsConfiguration : Configurable {
     }
 
     override fun reset() {
-        pluginSettingsConfigurationPanel
-            .messageWrapperTypeDropdown
-            .selectedItem = pluginSettingsState.messageWrapperType
+//        pluginSettingsConfigurationPanel
+//            .messageWrapperTypeDropdown
+//            .selectedItem = pluginSettingsState.messageWrapperType
         pluginSettingsConfigurationPanel.prefixesModel = CollectionListModel(pluginSettingsState.jiraProjectPrefixes)
         pluginSettingsConfigurationPanel.prefixesList.model = pluginSettingsConfigurationPanel.prefixesModel
     }
