@@ -15,10 +15,12 @@ class PluginSettingsConfigurationPanel {
     var mainPanel: JPanel
     var messageWrapperTypeDropdown: ComboBox<String> = ComboBox()
     private var prefixes = PluginSettingsState.instance.state.jiraProjectPrefixes
+    private var jiraAuthorization = PluginSettingsState.instance.state.jiraAuthorization
     var prefixesList: JBList<String>
     var prefixesModel: CollectionListModel<String>
     private var toolbar: ToolbarDecorator
     private var prefixField: JBTextField
+    var authorization: JBTextField
 
     init {
 
@@ -27,12 +29,14 @@ class PluginSettingsConfigurationPanel {
         prefixesList = JBList(prefixesModel)
         prefixesList.setEmptyText("No prefixes configured")
         prefixField = JBTextField();
+        authorization = JBTextField(jiraAuthorization);
 
         toolbar = ToolbarDecorator.createDecorator(prefixesList).disableUpDownActions()
 
 
         mainPanel = FormBuilder.createFormBuilder()
             .addLabeledComponent(JBLabel("JIRA project prefixes"), prefixField, 1, false)
+            .addLabeledComponent(JBLabel("JIRA authorization"), authorization, 1, false)
             .addComponentFillVertically(JPanel(), 0)
             .panel
     }

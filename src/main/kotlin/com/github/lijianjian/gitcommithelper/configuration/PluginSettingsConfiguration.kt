@@ -16,10 +16,8 @@ class PluginSettingsConfiguration : Configurable {
     }
 
     override fun isModified(): Boolean {
-        return false
-//        return pluginSettingsConfigurationPanel
-//            .messageWrapperTypeDropdown.selectedItem != pluginSettingsState.messageWrapperType ||
-//            setOf(pluginSettingsConfigurationPanel.prefixesModel.items) != setOf(pluginSettingsState.jiraProjectPrefixes)
+        return pluginSettingsConfigurationPanel.authorization.text != pluginSettingsState.jiraAuthorization
+                || pluginSettingsConfigurationPanel.prefixesModel.items != pluginSettingsState.jiraProjectPrefixes
     }
 
     override fun apply() {
@@ -27,6 +25,7 @@ class PluginSettingsConfiguration : Configurable {
 //            .messageWrapperTypeDropdown
 //            .selectedItem
 //            .toString()
+        pluginSettingsState.jiraAuthorization = pluginSettingsConfigurationPanel.authorization.text
         pluginSettingsState.jiraProjectPrefixes = pluginSettingsConfigurationPanel.prefixesModel.items
     }
 

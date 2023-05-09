@@ -26,5 +26,6 @@ class PluginSettingsState : PersistentStateComponent<PluginSettingsState.PluginS
 
     class PluginState {
         var jiraProjectPrefixes = emptyList<String>()
+        var jiraAuthorization = ""
     }
 }
